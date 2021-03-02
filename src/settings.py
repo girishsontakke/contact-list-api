@@ -32,10 +32,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'authentication',
-    'contacts'
+    'contacts',
+    "corsheaders"
 ]
-
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware"
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,3 +136,6 @@ SWAGGER_SETTINGS = {
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# cors
+CORS_ALLOW_ALL_ORIGINS = True
