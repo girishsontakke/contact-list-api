@@ -27,8 +27,11 @@ class LoginView(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer_data = serializer.data
-        user = auth.authenticate(
-            username=serializer_data['username'], password=serializer_data['password'])
+        try:
+            user = auth.authenticate(
+                username=serializer_data['username'], password=serializer_data['password'])
+        except KeyError:
+            return Response(data={"error": "username or password is missing"}, status=status.HTTP_400_BAD_REQUEST)
 
         if user:
             auth_token = jwt.encode(
